@@ -1,0 +1,73 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Next.js (project specific .gitignore in projects/app will handle most of these)
+# but good to have some general ones at root if other Next.js projects are added
+.next/
+out/
+
+# Monorepo tools (e.g., Turborepo cache - Next.js might also create this locally)
+.turbo/
+
+# Build artifacts / Distribution
+dist/
+build/
+*.js.map
+*.css.map
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+# Exclude .env files from Vercel CLI
+.vercel
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.project
+*.tmproj
+.history
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts # Typically project specific, but can be here
+
+# Test & Coverage
+coverage/
+.nyc_output/
+
+# Misc
+*.pem
+*.tgz
+*.gz
+
+
