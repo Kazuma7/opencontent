@@ -21,7 +21,7 @@ export const OrderDetailView = () => {
               <div>
                 <h3 className="text-lg font-semibold">商品タイトル</h3>
                 <p className="text-muted-foreground">注文ID: #123456</p>
-                <p className="mt-2 text-xl font-bold text-green-600">¥1,000</p>
+                <p className="mt-2 text-xl font-bold">¥1,000</p>
               </div>
             </div>
           </CardContent>

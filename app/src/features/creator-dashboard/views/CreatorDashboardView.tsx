@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export const CreatorDashboardView = () => {
   return (
     <div className="container mx-auto max-w-6xl space-y-6 p-6">
-      <h1 className="text-3xl font-bold">📊 ダッシュボード</h1>
+      <h1 className="text-3xl font-bold">ダッシュボード</h1>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <Link href="/creator/sales">
           <Card className="hover:shadow-md transition-shadow cursor-pointer">
@@ -14,7 +14,7 @@ export const CreatorDashboardView = () => {
               <CardTitle className="text-lg">売上</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold text-green-600">¥0</p>
+              <p className="text-2xl font-bold">¥0</p>
             </CardContent>
           </Card>
         </Link>
@@ -23,7 +23,7 @@ export const CreatorDashboardView = () => {
             <CardTitle className="text-lg">アクセス</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-blue-600">0</p>
+            <p className="text-2xl font-bold ">0</p>
           </CardContent>
         </Card>
         <Link href="/creator/products">
@@ -32,7 +32,7 @@ export const CreatorDashboardView = () => {
               <CardTitle className="text-lg">公開中商品</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold text-purple-600">0</p>
+              <p className="text-2xl font-bold">0</p>
             </CardContent>
           </Card>
         </Link>

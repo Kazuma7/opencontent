@@ -11,7 +11,7 @@ export const PurchaseDetailView = () => {
   return (
     <div className="container mx-auto max-w-2xl space-y-6 p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">🧾 購入詳細画面</h1>
+        <h1 className="text-3xl font-bold">お支払い内容</h1>
         <Button variant="outline" asChild>
           <Link href="/contents/1">戻る</Link>
         </Button>

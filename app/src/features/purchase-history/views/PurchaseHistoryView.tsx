@@ -28,7 +28,7 @@ export const PurchaseHistoryView = () => {
                     <p className="text-sm text-muted-foreground">2024年1月{i}日</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-green-600">¥1,000</p>
+                    <p className="font-semibold">¥1,000</p>
                     <p className="text-sm text-muted-foreground">完了</p>
                   </div>
                   <Button variant="outline" size="sm" asChild>

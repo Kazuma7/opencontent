@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -32,18 +32,18 @@ export const ShopSettingsView = () => {
                 placeholder="ショップの説明を入力"
               />
             </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>お礼メッセージ</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <textarea
-              className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
-              rows={3}
-              placeholder="購入者へのお礼メッセージを入力"
-            />
+
+            {/* 画像アップロード（プロフィール枠内） */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="cover-image-in-profile">カバー画像</Label>
+                <Input id="cover-image-in-profile" type="file" accept="image/*" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="profile-image-in-profile">プロフィール画像</Label>
+                <Input id="profile-image-in-profile" type="file" accept="image/*" />
+              </div>
+            </div>
           </CardContent>
         </Card>
         <Card>
@@ -71,17 +71,14 @@ export const ShopSettingsView = () => {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>画像</CardTitle>
+            <CardTitle>お礼メッセージ</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="profile-image">プロフィール画像</Label>
-              <Input id="profile-image" type="file" accept="image/*" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="cover-image">カバー画像</Label>
-              <Input id="cover-image" type="file" accept="image/*" />
-            </div>
+          <CardContent>
+            <textarea
+              className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
+              rows={3}
+              placeholder="購入者へのお礼メッセージを入力"
+            />
           </CardContent>
         </Card>
         <Button>保存</Button>
