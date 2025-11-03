@@ -1,5 +1,5 @@
-import { SampleView } from "@/features/sample/views/SampleView";
+import { HomeView } from "@/features/home/views/HomeView";
 
 export default function Home() {
-  return <SampleView />;
+  return <HomeView />;
 }
