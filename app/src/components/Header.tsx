@@ -20,7 +20,6 @@ export const Header = () => {
     { label: "商品管理", href: "/creator/products" },
     { label: "注文一覧", href: "/creator/orders" },
     { label: "ショップ設定", href: "/creator/shop/settings" },
-    { label: "アフィリエイト設定", href: "/creator/affiliate/settings" },
     { label: "購入履歴", href: "/purchase/history" },
     { label: "アカウント設定", href: "/creator/account/settings" },
   ];
