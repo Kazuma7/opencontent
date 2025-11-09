@@ -135,6 +135,13 @@ export const ContentDetailView = () => {
             <Link href="/purchase/detail">ダウンロード購入に進む</Link>
           </Button>
 
+          <Link
+            href="/payment/verification"
+            className="block text-sm text-blue-600 underline hover:text-blue-800 text-center"
+          >
+            送金済みで購入反映されない場合はこちら
+          </Link>
+
           <div className="grid grid-cols-2 gap-2">
             {/* ブックマークボタン */}
             <Button variant="outline" className="w-full cursor-pointer">

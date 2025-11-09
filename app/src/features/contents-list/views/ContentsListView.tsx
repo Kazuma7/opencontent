@@ -32,7 +32,7 @@ export const ContentsListView = () => {
   return (
     <div className="container mx-auto max-w-[1300px] space-y-6 p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">🔎 コンテンツ一覧画面</h1>
+        <h1 className="text-3xl font-bold">コンテンツ一覧画面</h1>
         <Button variant="outline" asChild>
           <Link href="/">ホームに戻る</Link>
         </Button>
