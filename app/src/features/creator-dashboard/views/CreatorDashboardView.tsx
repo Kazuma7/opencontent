@@ -59,13 +59,6 @@ export const CreatorDashboardView = () => {
             </CardHeader>
           </Card>
         </Link>
-        <Link href="/creator/affiliate/settings">
-          <Card className="hover:shadow-md transition-shadow cursor-pointer">
-            <CardHeader>
-              <CardTitle>🤝 アフィリエイト設定</CardTitle>
-            </CardHeader>
-          </Card>
-        </Link>
         <Link href="/creator/account/settings">
           <Card className="hover:shadow-md transition-shadow cursor-pointer">
             <CardHeader>
