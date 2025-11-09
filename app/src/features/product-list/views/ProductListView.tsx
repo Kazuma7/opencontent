@@ -31,4 +31,3 @@ export const ProductListView = () => {
     </div>
   );
 };
-

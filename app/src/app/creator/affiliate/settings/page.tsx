@@ -3,4 +3,3 @@ import { AffiliateSettingsView } from "@/features/affiliate-settings/views/Affil
 export default function AffiliateSettingsPage() {
   return <AffiliateSettingsView />;
 }
-

@@ -3,4 +3,3 @@ import { ShopSettingsView } from "@/features/shop-settings/views/ShopSettingsVie
 export default function ShopSettingsPage() {
   return <ShopSettingsView />;
 }
-

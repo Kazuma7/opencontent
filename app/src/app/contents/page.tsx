@@ -3,4 +3,3 @@ import { ContentsListView } from "@/features/contents-list/views/ContentsListVie
 export default function ContentsListPage() {
   return <ContentsListView />;
 }
-

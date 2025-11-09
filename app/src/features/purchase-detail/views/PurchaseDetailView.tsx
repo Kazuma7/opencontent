@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -32,7 +38,9 @@ export const PurchaseDetailView = () => {
           </div>
           <Separator />
           <div>
-            <Label className="mb-3 text-base font-semibold">支払いトークン選択</Label>
+            <Label className="mb-3 text-base font-semibold">
+              支払いトークン選択
+            </Label>
             <RadioGroup defaultValue="eth" className="mt-3">
               <div className="flex items-center space-x-2 rounded-md border p-3 hover:bg-accent">
                 <RadioGroupItem value="eth" id="eth" />
@@ -77,4 +85,3 @@ export const PurchaseDetailView = () => {
     </div>
   );
 };
-

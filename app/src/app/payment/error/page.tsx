@@ -3,4 +3,3 @@ import { ErrorPaymentView } from "@/features/error-payment/views/ErrorPaymentVie
 export default function ErrorPaymentPage() {
   return <ErrorPaymentView />;
 }
-

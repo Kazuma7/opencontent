@@ -18,7 +18,9 @@ export const ProductPreviewView = () => {
           </div>
           <div>
             <h3 className="text-xl font-semibold">商品タイトル</h3>
-            <p className="mt-2 text-muted-foreground">商品説明がここに表示されます</p>
+            <p className="mt-2 text-muted-foreground">
+              商品説明がここに表示されます
+            </p>
           </div>
           <div className="mt-4">
             <p className="text-lg font-semibold">価格: ¥1,000</p>
@@ -29,11 +31,14 @@ export const ProductPreviewView = () => {
         <Button asChild>
           <Link href="/creator/products/1/edit">編集に戻る</Link>
         </Button>
-        <Button variant="default" className="bg-green-500 hover:bg-green-600" asChild>
+        <Button
+          variant="default"
+          className="bg-green-500 hover:bg-green-600"
+          asChild
+        >
           <Link href="/creator/products/1/publish">公開する</Link>
         </Button>
       </div>
     </div>
   );
 };
-

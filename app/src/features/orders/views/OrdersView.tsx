@@ -31,7 +31,10 @@ export const OrdersView = () => {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell colSpan={5} className="text-center text-muted-foreground">
+                <TableCell
+                  colSpan={5}
+                  className="text-center text-muted-foreground"
+                >
                   注文データがありません
                 </TableCell>
               </TableRow>
@@ -42,4 +45,3 @@ export const OrdersView = () => {
     </div>
   );
 };
-

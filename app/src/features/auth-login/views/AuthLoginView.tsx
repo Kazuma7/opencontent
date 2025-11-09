@@ -17,11 +17,7 @@ export const AuthLoginView = () => {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">メールアドレス</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="user@example.com"
-            />
+            <Input id="email" type="email" placeholder="user@example.com" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">パスワード</Label>
@@ -33,7 +29,9 @@ export const AuthLoginView = () => {
               <Separator />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-background px-2 text-muted-foreground">または</span>
+              <span className="bg-background px-2 text-muted-foreground">
+                または
+              </span>
             </div>
           </div>
           <div className="space-y-2">
@@ -55,4 +53,3 @@ export const AuthLoginView = () => {
     </div>
   );
 };
-

@@ -3,4 +3,3 @@ import { PurchaseDetailView } from "@/features/purchase-detail/views/PurchaseDet
 export default function PurchaseDetailPage() {
   return <PurchaseDetailView />;
 }
-

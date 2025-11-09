@@ -3,4 +3,3 @@ import { PurchaseHistoryView } from "@/features/purchase-history/views/PurchaseH
 export default function PurchaseHistoryPage() {
   return <PurchaseHistoryView />;
 }
-

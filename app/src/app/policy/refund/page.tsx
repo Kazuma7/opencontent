@@ -3,4 +3,3 @@ import { PolicyRefundView } from "@/features/policy-refund/views/PolicyRefundVie
 export default function PolicyRefundPage() {
   return <PolicyRefundView />;
 }
-

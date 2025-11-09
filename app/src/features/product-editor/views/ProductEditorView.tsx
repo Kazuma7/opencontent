@@ -63,7 +63,9 @@ export const ProductEditorView = () => {
             <TabsContent value="adult" className="mt-6">
               <div className="space-y-2">
                 <Label>アダルト設定</Label>
-                <p className="text-sm text-muted-foreground">アダルト設定の内容</p>
+                <p className="text-sm text-muted-foreground">
+                  アダルト設定の内容
+                </p>
               </div>
             </TabsContent>
             <TabsContent value="schedule" className="mt-6">
@@ -86,4 +88,3 @@ export const ProductEditorView = () => {
     </div>
   );
 };
-

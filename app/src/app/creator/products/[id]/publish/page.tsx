@@ -3,4 +3,3 @@ import { ProductPublishView } from "@/features/product-publish/views/ProductPubl
 export default function ProductPublishPage() {
   return <ProductPublishView />;
 }
-

@@ -3,4 +3,3 @@ import { PaymentCompleteView } from "@/features/payment-complete/views/PaymentCo
 export default function PaymentCompletePage() {
   return <PaymentCompleteView />;
 }
-
