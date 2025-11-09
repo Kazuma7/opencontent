@@ -3,4 +3,3 @@ import { ProductEditorView } from "@/features/product-editor/views/ProductEditor
 export default function ProductEditPage() {
   return <ProductEditorView />;
 }
-

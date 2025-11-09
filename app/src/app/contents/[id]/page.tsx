@@ -3,4 +3,3 @@ import { ContentDetailView } from "@/features/content-detail/views/ContentDetail
 export default function ContentDetailPage() {
   return <ContentDetailView />;
 }
-

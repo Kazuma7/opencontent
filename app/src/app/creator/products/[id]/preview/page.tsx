@@ -3,4 +3,3 @@ import { ProductPreviewView } from "@/features/product-preview/views/ProductPrev
 export default function ProductPreviewPage() {
   return <ProductPreviewView />;
 }
-

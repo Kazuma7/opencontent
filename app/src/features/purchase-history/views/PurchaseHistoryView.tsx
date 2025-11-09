@@ -25,7 +25,9 @@ export const PurchaseHistoryView = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold">購入商品 {i}</h3>
-                    <p className="text-sm text-muted-foreground">2024年1月{i}日</p>
+                    <p className="text-sm text-muted-foreground">
+                      2024年1月{i}日
+                    </p>
                   </div>
                   <div className="text-right">
                     <p className="font-semibold">¥1,000</p>
@@ -43,4 +45,3 @@ export const PurchaseHistoryView = () => {
     </div>
   );
 };
-

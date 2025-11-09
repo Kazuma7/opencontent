@@ -37,11 +37,21 @@ export const ShopSettingsView = () => {
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="cover-image-in-profile">カバー画像</Label>
-                <Input id="cover-image-in-profile" type="file" accept="image/*" />
+                <Input
+                  id="cover-image-in-profile"
+                  type="file"
+                  accept="image/*"
+                />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="profile-image-in-profile">プロフィール画像</Label>
-                <Input id="profile-image-in-profile" type="file" accept="image/*" />
+                <Label htmlFor="profile-image-in-profile">
+                  プロフィール画像
+                </Label>
+                <Input
+                  id="profile-image-in-profile"
+                  type="file"
+                  accept="image/*"
+                />
               </div>
             </div>
           </CardContent>
@@ -86,4 +96,3 @@ export const ShopSettingsView = () => {
     </div>
   );
 };
-

@@ -22,11 +22,15 @@ export const ContentDetailView = () => {
   ];
 
   const handlePreviousImage = () => {
-    setCurrentImageIndex((prev) => (prev === 0 ? thumbnailImages.length - 1 : prev - 1));
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? thumbnailImages.length - 1 : prev - 1,
+    );
   };
 
   const handleNextImage = () => {
-    setCurrentImageIndex((prev) => (prev === thumbnailImages.length - 1 ? 0 : prev + 1));
+    setCurrentImageIndex((prev) =>
+      prev === thumbnailImages.length - 1 ? 0 : prev + 1,
+    );
   };
 
   return (
@@ -37,7 +41,9 @@ export const ContentDetailView = () => {
           {/* メイン画像 */}
           <div className="relative aspect-square w-full overflow-hidden bg-muted group">
             <div className="flex h-full w-full items-center justify-center">
-              <p className="text-muted-foreground">画像 {thumbnailImages[currentImageIndex]}</p>
+              <p className="text-muted-foreground">
+                画像 {thumbnailImages[currentImageIndex]}
+              </p>
             </div>
             {/* 左矢印 */}
             <button
@@ -52,7 +58,12 @@ export const ContentDetailView = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
             </button>
             {/* 右矢印 */}
@@ -68,7 +79,12 @@ export const ContentDetailView = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </button>
           </div>
@@ -114,11 +130,16 @@ export const ContentDetailView = () => {
 
           {/* ショップ情報 */}
           <div className="flex items-center gap-2">
-            <Link href="/shop/1" className="flex items-center gap-2 hover:opacity-90">
+            <Link
+              href="/shop/1"
+              className="flex items-center gap-2 hover:opacity-90"
+            >
               <div className="h-6 w-6 rounded-full bg-black flex items-center justify-center">
                 <span className="text-[10px] font-semibold text-white">NA</span>
               </div>
-              <span className="text-sm text-muted-foreground">Noah&apos;sArk</span>
+              <span className="text-sm text-muted-foreground">
+                Noah&apos;sArk
+              </span>
             </Link>
           </div>
 
@@ -159,7 +180,11 @@ export const ContentDetailView = () => {
             <p className="text-sm font-medium">関連タグ</p>
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => (
-                <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-secondary/80">
+                <Badge
+                  key={tag}
+                  variant="secondary"
+                  className="cursor-pointer hover:bg-secondary/80"
+                >
                   {tag}
                 </Badge>
               ))}
@@ -170,4 +195,3 @@ export const ContentDetailView = () => {
     </div>
   );
 };
-

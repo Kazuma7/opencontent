@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "test:ci": "pnpm typecheck && pnpm lint && pnpm test",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -39,7 +43,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "prettier": "^3.5.3"
   },
   "engines": {
     "node": "22.12.0",

@@ -18,7 +18,13 @@ export const categorySchema = z.enum([
 ]);
 
 // 公開フラグスキーマ
-export const visibilitySchema = z.enum(["public", "private", "followers_only"]);
+export const visibilitySchema = z.enum([
+  "draft",
+  "public",
+  "private",
+  "limited",
+  "archived",
+]);
 
 // コンテンツスキーマ
 export const contentSchema = z.object({
@@ -38,7 +44,9 @@ export const contentSchema = z.object({
     .max(100, "アフィリエイト割合は100以下である必要があります"),
   isAffiliateEnabled: z.boolean(),
   likes: z.number().nonnegative("いいね数は0以上である必要があります"),
-  bookmarks: z.number().nonnegative("ブックマーク数は0以上である必要があります"),
+  bookmarks: z
+    .number()
+    .nonnegative("ブックマーク数は0以上である必要があります"),
   isAdult: z.boolean(),
   visibility: visibilitySchema,
   publishStartAt: z.date(),

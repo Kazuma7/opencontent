@@ -3,4 +3,3 @@ import { WalletConnectView } from "@/features/wallet-connect/views/WalletConnect
 export default function WalletConnectPage() {
   return <WalletConnectView />;
 }
-

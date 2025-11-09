@@ -49,7 +49,9 @@ export const ShopDetailView = () => {
               </div>
             </div>
             {/* ショップ名 */}
-            <h1 className="text-3xl font-semibold text-white">Noah&apos;s Ark</h1>
+            <h1 className="text-3xl font-semibold text-white">
+              Noah&apos;s Ark
+            </h1>
           </div>
         </div>
       </div>
@@ -73,7 +75,9 @@ export const ShopDetailView = () => {
               <h2 className="text-2xl font-bold">Noah&apos;sArk</h2>
               <p className="text-sm text-muted-foreground">NoahsArk</p>
             </div>
-            <p className="text-sm text-muted-foreground">ノア / 2D/3D/VR designer</p>
+            <p className="text-sm text-muted-foreground">
+              ノア / 2D/3D/VR designer
+            </p>
             {/* ソーシャルアイコン */}
             <div className="flex gap-4">
               <button className="text-muted-foreground hover:text-foreground">
@@ -113,7 +117,9 @@ export const ShopDetailView = () => {
 
           {/* フォローボタン */}
           <div className="shrink-0">
-            <Button className="bg-[#067bbf] hover:bg-[#067bbf]/90">フォロー</Button>
+            <Button className="bg-[#067bbf] hover:bg-[#067bbf]/90">
+              フォロー
+            </Button>
           </div>
         </div>
 
@@ -127,11 +133,15 @@ export const ShopDetailView = () => {
                   {/* 商品画像 */}
                   <div className="aspect-square w-full overflow-hidden bg-muted">
                     <div className="flex h-full w-full items-center justify-center">
-                      <p className="text-sm text-muted-foreground">{product.image}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {product.image}
+                      </p>
                     </div>
                   </div>
                   {/* カテゴリ */}
-                  <p className="text-xs text-muted-foreground">{product.category}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {product.category}
+                  </p>
                   {/* タイトル */}
                   <p className="line-clamp-2 text-sm font-medium leading-tight group-hover:text-primary">
                     {product.title}
@@ -139,12 +149,18 @@ export const ShopDetailView = () => {
                   {/* ショップ名とロゴ */}
                   <div className="flex items-center gap-2">
                     <div className="h-4 w-4 rounded-full bg-black flex items-center justify-center">
-                      <span className="text-[8px] font-semibold text-white">NA</span>
+                      <span className="text-[8px] font-semibold text-white">
+                        NA
+                      </span>
                     </div>
-                    <p className="text-xs text-muted-foreground">Noah&apos;sArk</p>
+                    <p className="text-xs text-muted-foreground">
+                      Noah&apos;sArk
+                    </p>
                   </div>
                   {/* 価格 */}
-                  <p className="text-sm font-semibold">{product.price.toLocaleString()}円</p>
+                  <p className="text-sm font-semibold">
+                    {product.price.toLocaleString()}円
+                  </p>
                 </div>
               </Link>
             ))}
@@ -154,4 +170,3 @@ export const ShopDetailView = () => {
     </div>
   );
 };
-

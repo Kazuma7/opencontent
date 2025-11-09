@@ -3,4 +3,3 @@ import { CreatorDashboardView } from "@/features/creator-dashboard/views/Creator
 export default function CreatorDashboardPage() {
   return <CreatorDashboardView />;
 }
-

@@ -1,7 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
 
 export const PolicyTermsView = () => {
   return (
@@ -29,4 +35,3 @@ export const PolicyTermsView = () => {
     </div>
   );
 };
-

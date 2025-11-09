@@ -3,4 +3,3 @@ import { AccountSettingsView } from "@/features/account-settings/views/AccountSe
 export default function AccountSettingsPage() {
   return <AccountSettingsView />;
 }
-

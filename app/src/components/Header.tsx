@@ -53,7 +53,9 @@ export const Header = () => {
                   >
                     {item.label}
                   </Link>
-                  {index < menuItems.length - 1 && <Separator className="my-2" />}
+                  {index < menuItems.length - 1 && (
+                    <Separator className="my-2" />
+                  )}
                 </div>
               ))}
             </div>
@@ -63,4 +65,3 @@ export const Header = () => {
     </header>
   );
 };
-

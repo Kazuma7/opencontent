@@ -10,18 +10,28 @@ export const WalletConnectView = () => {
       <h1 className="text-3xl font-bold">🔗 別ウォレット接続画面</h1>
       <Card>
         <CardContent className="space-y-4 p-6">
-          <p className="text-muted-foreground">別のウォレットを接続して支払いを行います</p>
+          <p className="text-muted-foreground">
+            別のウォレットを接続して支払いを行います
+          </p>
           <div className="space-y-3">
-            <Button variant="outline" className="w-full justify-start h-auto p-4">
+            <Button
+              variant="outline"
+              className="w-full justify-start h-auto p-4"
+            >
               <div className="flex items-center gap-3 w-full">
                 <div className="h-10 w-10 rounded bg-orange-100"></div>
                 <div className="text-left">
                   <p className="font-semibold">MetaMask</p>
-                  <p className="text-sm text-muted-foreground">ブラウザ拡張機能</p>
+                  <p className="text-sm text-muted-foreground">
+                    ブラウザ拡張機能
+                  </p>
                 </div>
               </div>
             </Button>
-            <Button variant="outline" className="w-full justify-start h-auto p-4">
+            <Button
+              variant="outline"
+              className="w-full justify-start h-auto p-4"
+            >
               <div className="flex items-center gap-3 w-full">
                 <div className="h-10 w-10 rounded bg-blue-100"></div>
                 <div className="text-left">
@@ -30,12 +40,17 @@ export const WalletConnectView = () => {
                 </div>
               </div>
             </Button>
-            <Button variant="outline" className="w-full justify-start h-auto p-4">
+            <Button
+              variant="outline"
+              className="w-full justify-start h-auto p-4"
+            >
               <div className="flex items-center gap-3 w-full">
                 <div className="h-10 w-10 rounded bg-purple-100"></div>
                 <div className="text-left">
                   <p className="font-semibold">Coinbase Wallet</p>
-                  <p className="text-sm text-muted-foreground">モバイル・ブラウザ</p>
+                  <p className="text-sm text-muted-foreground">
+                    モバイル・ブラウザ
+                  </p>
                 </div>
               </div>
             </Button>
@@ -48,5 +63,3 @@ export const WalletConnectView = () => {
     </div>
   );
 };
-
-

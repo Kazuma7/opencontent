@@ -13,7 +13,9 @@ export const ErrorPaymentView = () => {
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
             <span className="text-3xl text-destructive">✗</span>
           </div>
-          <h2 className="text-xl font-semibold text-destructive">支払いに失敗しました</h2>
+          <h2 className="text-xl font-semibold text-destructive">
+            支払いに失敗しました
+          </h2>
           <p className="text-muted-foreground">
             トランザクションの処理中にエラーが発生しました。
           </p>
@@ -36,4 +38,3 @@ export const ErrorPaymentView = () => {
     </div>
   );
 };
-
