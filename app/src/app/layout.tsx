@@ -5,7 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { headers } from "next/headers";
 import { cookieToInitialState } from "wagmi";
-import { config as wagmiConfig } from "@/lib/wagmi";
+import { wagmiConfig } from "@/lib/wagmi";
 import { Providers } from "./providers";
 
 const geistSans = Geist({
