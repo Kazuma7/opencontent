@@ -1,5 +1,6 @@
 import { shopSchema, userSchema } from "@/domain/model/user";
-import type { SessionOptions } from "iron-session";
+import { getIronSession, type SessionOptions } from "iron-session";
+import { cookies } from "next/headers";
 import { SiweMessage } from "siwe";
 import { z } from "zod";
 
@@ -8,6 +9,8 @@ export const siweStatementSchema = z.object({
   displayname: shopSchema.shape.displayName,
   description: shopSchema.shape.description,
 });
+
+export type SiweStatement = z.infer<typeof siweStatementSchema>;
 
 export const authSessionDataSchema = z.object({
   siweNonce: z.string().nullable(),
@@ -34,4 +37,16 @@ export const authSessionOptions: SessionOptions = {
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
   },
+};
+
+export const getSession = async () => {
+  const session = await getIronSession<{ data: AuthSessionData }>(
+    await cookies(),
+    authSessionOptions
+  );
+
+  const parsed = authSessionDataSchema.safeParse(session.data ?? undefined);
+  if (!parsed.success) session.data = defaultAuthSessionData;
+
+  return session;
 };

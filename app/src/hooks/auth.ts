@@ -10,15 +10,16 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { SiweMessage } from "siwe";
 import { preAuthenticate } from "thirdweb/wallets";
-import { Account, Address, isAddressEqual } from "viem";
+import { Address, isAddressEqual } from "viem";
+import { getProfiles } from "thirdweb/wallets";
 import {
-  useAccount,
   useConnect,
   useConnection,
   useConnectors,
   useDisconnect,
   useSignMessage,
 } from "wagmi";
+import { SiweStatement } from "@/lib/auth";
 
 export const useSessionsQuery = () => {
   const query = useQuery({
@@ -94,7 +95,6 @@ export const useSiweLogin = () => {
       const message = new SiweMessage({
         domain: window.location.host,
         address,
-        statement: "Sign in with Ethereum to the app.",
         uri: window.location.origin,
         version: "1",
         chainId: chainId,
@@ -116,7 +116,8 @@ export const useSiweLogin = () => {
     onSuccess: () => {
       sessions.refetch();
     },
-    onError: () => {
+    onError: (error) => {
+      console.error("Failed to sign in", error);
       sessions.refetch();
       disconnect();
     },

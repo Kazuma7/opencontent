@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { timestampSchema } from "./base";
+import { isAddress } from "viem";
 
 /**
  * ユーザー認証情報スキーマ
@@ -18,9 +19,11 @@ export const userSchema = z.object({
   /** メールアドレス */
   email: z.email(),
   /** ウォレットアドレス（0x...） */
-  walletAddress: z.regex(/^0x[a-fA-F0-9]{40}$/, {
-    message: "有効なウォレットアドレスを入力してください",
-  }),
+  walletAddress: z
+    .string()
+    .refine((a) => isAddress(a), {
+      message: "有効なウォレットアドレスを入力してください",
+    }),
   /** アイコン画像URL */
   iconImage: z.string().url().optional(),
 });

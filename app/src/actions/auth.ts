@@ -1,10 +1,14 @@
+"use server";
+
 import { cookies } from "next/headers";
 import { getIronSession } from "iron-session";
+import { getUser } from "thirdweb/wallets";
 import {
   AuthSessionData,
   authSessionDataSchema,
   authSessionOptions,
   defaultAuthSessionData,
+  getSession,
   siweStatementSchema,
 } from "@/lib/auth";
 import { generateNonce, SiweMessage } from "siwe";
@@ -12,27 +16,16 @@ import z from "zod";
 import { UserRepository } from "@/infrastructure/repository/userRepository";
 import { db } from "@/infrastructure/firestore";
 import { Address, isAddressEqual } from "viem";
+import { pickUserName, thirdwebClient } from "@/lib/wagmi";
 
-const getSession = async () => {
-  const session = await getIronSession<{ data: AuthSessionData }>(
-    await cookies(),
-    authSessionOptions
-  );
-
-  const parsed = authSessionDataSchema.safeParse(session.data ?? undefined);
-  if (!parsed.success) session.data = defaultAuthSessionData;
-
-  return session;
-};
-
-export const getSessionsAction = async () => {
+export async function getSessionsAction() {
   "use server";
 
   const session = await getSession();
   return { sessions: session.data.sessions };
-};
+}
 
-export const getNonceAction = async () => {
+export async function getNonceAction() {
   "use server";
   try {
     const session = await getSession();
@@ -46,16 +39,16 @@ export const getNonceAction = async () => {
     console.error(e);
     return { success: false, message: "Internal Server Error" } as const;
   }
-};
+}
 
-export const signInWithEthActionParamsSchema = z.object({
+const signInWithEthActionParamsSchema = z.object({
   message: z.string(),
   signature: z.string(),
 });
 
-export const signInWithEthAction = async (
+export async function signInWithEthAction(
   params: z.infer<typeof signInWithEthActionParamsSchema>
-) => {
+) {
   "use server";
 
   try {
@@ -66,14 +59,19 @@ export const signInWithEthAction = async (
 
     const siweMessage = new SiweMessage(message);
     const fields = await siweMessage.verify({ signature });
-    const statement = siweStatementSchema.parse(
-      JSON.parse(fields.data.statement ?? "{}")
-    );
 
     const session = await getSession();
     if (session.data.siweNonce !== fields.data.nonce) {
       return { success: false, message: "Invalid nonce" } as const;
     }
+
+    const user = await getUser({
+      client: thirdwebClient,
+      walletAddress: fields.data.address,
+    });
+    if (!user) return { success: false, message: "User not found" } as const;
+    if (!user.email)
+      return { success: false, message: "User email not found" } as const;
 
     let targetUser = await userRepository.findByWalletAddress(
       fields.data.address
@@ -82,10 +80,10 @@ export const signInWithEthAction = async (
       targetUser = {
         userId: crypto.randomUUID(),
         uniqueName: fields.data.address.slice(2),
-        email: statement.email,
+        email: user.email,
         walletAddress: fields.data.address,
-        displayName: statement.displayname,
-        description: statement.description,
+        displayName: pickUserName(user),
+        description: `Account created at ${new Date().toISOString()}`,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -96,7 +94,7 @@ export const signInWithEthAction = async (
       ...session.data.sessions.filter((s) => s.userId !== targetUser.userId),
       {
         userId: targetUser.userId,
-        walletAddress: targetUser.walletAddress,
+        walletAddress: targetUser.walletAddress as string,
         siwe: fields.data,
       },
     ];
@@ -110,13 +108,13 @@ export const signInWithEthAction = async (
     console.error(e);
     return { success: false, message: "Internal Server Error" } as const;
   }
-};
+}
 
-export const logoutActionParams = z.object({
+const logoutActionParams = z.object({
   walletAddress: z.string(),
 });
 
-export const logout = async (params: z.infer<typeof logoutActionParams>) => {
+export async function logout(params: z.infer<typeof logoutActionParams>) {
   "use server";
   try {
     const session = await getSession();
@@ -134,4 +132,4 @@ export const logout = async (params: z.infer<typeof logoutActionParams>) => {
     console.error(e);
     return { success: false, message: "Internal Server Error" } as const;
   }
-};
+}

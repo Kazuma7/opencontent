@@ -2,6 +2,7 @@ import { createSafeActionClient } from "next-safe-action";
 import { cookies } from "next/headers";
 import { AUTH_COOKIE_NAME } from "@/constants/auth";
 import admin from "firebase-admin";
+import { app } from "./firebase";
 
 export const actionClient = createSafeActionClient({
   handleServerError(e: Error, _utils): string {
@@ -39,12 +40,6 @@ interface DecodedToken {
 }
 
 async function verifyIdToken(idToken: string): Promise<DecodedToken | null> {
-  let app: admin.app.App;
-  if (admin.apps.length > 0) {
-    app = admin.apps[0] as admin.app.App;
-  } else {
-    app = admin.initializeApp({});
-  }
   const adminAuth = admin.auth(app);
   try {
     const decodedToken = await adminAuth.verifyIdToken(idToken);
