@@ -1,39 +1,31 @@
-import { userSchema } from "@/domain/model/user";
+import { shopSchema, userSchema } from "@/domain/model/user";
 import type { SessionOptions } from "iron-session";
+import { SiweMessage } from "siwe";
 import { z } from "zod";
 
-export const siweChallengingSessionDataSchema = z.object({
-  type: z.literal("siwe-challenging"),
-  nonce: z.string(),
+export const siweStatementSchema = z.object({
+  email: z.email(),
+  displayname: shopSchema.shape.displayName,
+  description: shopSchema.shape.description,
 });
 
-export type SiweChallengingSessionData = z.infer<
-  typeof siweChallengingSessionDataSchema
->;
-
-export const loginedSessionDataSchema = z.object({
-  type: z.literal("logined"),
-  auth: {
-    userId: userSchema.shape.userId,
-    walletAddress: userSchema.shape.walletAddress,
-  },
+export const authSessionDataSchema = z.object({
+  siweNonce: z.string().nullable(),
+  sessions: z.array(
+    z.object({
+      siwe: z.custom<SiweMessage>(),
+      userId: userSchema.shape.userId,
+      walletAddress: userSchema.shape.walletAddress,
+    })
+  ),
 });
-
-export type LoginedSessionData = z.infer<typeof loginedSessionDataSchema>;
-
-export const noneSessionDataSchema = z.object({
-  type: z.literal("none"),
-});
-
-export type NoneSessionData = z.infer<typeof noneSessionDataSchema>;
-
-export const authSessionDataSchema = z.discriminatedUnion("type", [
-  siweChallengingSessionDataSchema,
-  loginedSessionDataSchema,
-  noneSessionDataSchema,
-]);
 
 export type AuthSessionData = z.infer<typeof authSessionDataSchema>;
+
+export const defaultAuthSessionData: AuthSessionData = {
+  siweNonce: null,
+  sessions: [],
+};
 
 export const authSessionOptions: SessionOptions = {
   password: process.env.SESSION_KEY as string,

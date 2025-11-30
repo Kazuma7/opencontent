@@ -4,9 +4,15 @@ import {
   AuthSessionData,
   authSessionDataSchema,
   authSessionOptions,
-  NoneSessionData,
+  defaultAuthSessionData,
+  siweStatementSchema,
 } from "@/lib/auth";
-import { generateNonce } from "siwe";
+import { generateNonce, SiweMessage } from "siwe";
+import z from "zod";
+import { UserRepository } from "@/infrastructure/repository/userRepository";
+import { db } from "@/infrastructure/firestore";
+import { revalidatePath } from "next/cache";
+import { Address, isAddressEqual } from "viem";
 
 export const getSession = async () => {
   const session = await getIronSession<{ data: AuthSessionData }>(
@@ -15,19 +21,111 @@ export const getSession = async () => {
   );
 
   const parsed = authSessionDataSchema.safeParse(session.data ?? undefined);
-  if (!parsed.success) session.data = { type: "none" };
+  if (!parsed.success) session.data = defaultAuthSessionData;
 
   return session;
 };
 
-export const nonceAction = async () => {
+export const getNonceAction = async () => {
+  "use server";
+  try {
+    const session = await getSession();
+    const siweNonce = generateNonce();
+    session.data = { ...session.data, siweNonce };
+
+    await session.save();
+
+    return { success: true, siweNonce };
+  } catch (e) {
+    console.error(e);
+    return { success: false, message: "Internal Server Error" } as const;
+  }
+};
+
+export const signInWithEthActionParamsSchema = z.object({
+  message: z.string(),
+  signature: z.string(),
+});
+
+export const signInWithEthAction = async (
+  params: z.infer<typeof signInWithEthActionParamsSchema>
+) => {
   "use server";
 
-  const session = await getSession();
-  const nonce = generateNonce();
-  session.data = { type: "siwe-challenging", nonce };
+  try {
+    const userRepository = new UserRepository(db);
 
-  await session.save();
+    const { message, signature } =
+      signInWithEthActionParamsSchema.parse(params);
 
-  return session;
+    const siweMessage = new SiweMessage(message);
+    const fields = await siweMessage.verify({ signature });
+    const statement = siweStatementSchema.parse(
+      JSON.parse(fields.data.statement ?? "{}")
+    );
+
+    const session = await getSession();
+    if (session.data.siweNonce !== fields.data.nonce) {
+      return { success: false, message: "Invalid nonce" } as const;
+    }
+
+    let targetUser = await userRepository.findByWalletAddress(
+      fields.data.address
+    );
+    if (!targetUser) {
+      targetUser = {
+        userId: crypto.randomUUID(),
+        uniqueName: fields.data.address.slice(2),
+        email: statement.email,
+        walletAddress: fields.data.address,
+        displayName: statement.displayname,
+        description: statement.description,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      await userRepository.save(targetUser);
+    }
+
+    const newSessions = [
+      ...session.data.sessions.filter((s) => s.userId !== targetUser.userId),
+      {
+        userId: targetUser.userId,
+        walletAddress: targetUser.walletAddress,
+        siwe: fields.data,
+      },
+    ];
+    session.data.sessions = newSessions;
+    session.data.siweNonce = null;
+
+    await session.save();
+
+    return { success: true } as const;
+  } catch (e) {
+    console.error(e);
+    return { success: false, message: "Internal Server Error" } as const;
+  }
+};
+
+export const logoutActionParams = z.object({
+  walletAddress: z.string(),
+});
+
+export const logout = async (params: z.infer<typeof logoutActionParams>) => {
+  "use server";
+  try {
+    const session = await getSession();
+
+    session.data.sessions = session.data.sessions.filter(
+      (s) =>
+        !isAddressEqual(
+          params.walletAddress as Address,
+          s.walletAddress as Address
+        )
+    );
+    await session.save();
+    return { success: true } as const;
+  } catch (e) {
+    console.error(e);
+    return { success: false, message: "Internal Server Error" } as const;
+  }
 };
