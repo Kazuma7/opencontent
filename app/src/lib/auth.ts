@@ -14,8 +14,8 @@ export const authSessionDataSchema = z.object({
   sessions: z.array(
     z.object({
       siwe: z.custom<SiweMessage>(),
-      userId: userSchema.shape.userId,
-      walletAddress: userSchema.shape.walletAddress,
+      userId: z.string(),
+      walletAddress: z.string(),
     })
   ),
 });

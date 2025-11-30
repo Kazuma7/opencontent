@@ -11,10 +11,9 @@ import { generateNonce, SiweMessage } from "siwe";
 import z from "zod";
 import { UserRepository } from "@/infrastructure/repository/userRepository";
 import { db } from "@/infrastructure/firestore";
-import { revalidatePath } from "next/cache";
 import { Address, isAddressEqual } from "viem";
 
-export const getSession = async () => {
+const getSession = async () => {
   const session = await getIronSession<{ data: AuthSessionData }>(
     await cookies(),
     authSessionOptions
@@ -26,6 +25,13 @@ export const getSession = async () => {
   return session;
 };
 
+export const getSessionsAction = async () => {
+  "use server";
+
+  const session = await getSession();
+  return { sessions: session.data.sessions };
+};
+
 export const getNonceAction = async () => {
   "use server";
   try {
@@ -35,7 +41,7 @@ export const getNonceAction = async () => {
 
     await session.save();
 
-    return { success: true, siweNonce };
+    return { success: true, siweNonce } as const;
   } catch (e) {
     console.error(e);
     return { success: false, message: "Internal Server Error" } as const;
