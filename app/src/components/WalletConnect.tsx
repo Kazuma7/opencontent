@@ -47,6 +47,8 @@ export function WalletConnect() {
         email: "inainainariinainari@gmail.com",
         verificationCode,
       });
+
+      inAppWallet.
   };
 
   return (
