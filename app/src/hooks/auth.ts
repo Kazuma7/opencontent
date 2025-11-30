@@ -46,9 +46,10 @@ export const useThirdwebConnect = () => {
     },
   });
 
-  const loginWithEmail = (email: string, verificationCode: string) => {
-    if (!thirdwebConnector) return;
-    connect({
+  const loginWithEmail = async (email: string, verificationCode: string) => {
+    if (!thirdwebConnector)
+      throw new Error("ウォレット接続の準備ができていません");
+    return connect({
       connector: thirdwebConnector,
       strategy: "email",
       email,
@@ -56,17 +57,19 @@ export const useThirdwebConnect = () => {
     } as { connector: typeof thirdwebConnector });
   };
 
-  const loginWithGoogle = () => {
-    if (!thirdwebConnector) return;
-    connect({
+  const loginWithGoogle = async () => {
+    if (!thirdwebConnector)
+      throw new Error("ウォレット接続の準備ができていません");
+    return connect({
       connector: thirdwebConnector,
       strategy: "google",
     });
   };
 
-  const loginWithGithub = () => {
-    if (!thirdwebConnector) return;
-    connect({
+  const loginWithGithub = async () => {
+    if (!thirdwebConnector)
+      throw new Error("ウォレット接続の準備ができていません");
+    return connect({
       connector: thirdwebConnector,
       strategy: "github",
     });
