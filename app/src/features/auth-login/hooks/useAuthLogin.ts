@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from "react";
 
-import { useThirdwebConnect } from "@/hooks/auth";
+import { useSiweLogin, useThirdwebConnect } from "@/hooks/auth";
 
 export const useAuthLogin = () => {
   const {
@@ -11,6 +11,7 @@ export const useAuthLogin = () => {
     loginWithGoogle,
     loginWithGithub,
   } = useThirdwebConnect();
+  const { siwe } = useSiweLogin();
 
   const [email, setEmail] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
@@ -129,7 +130,7 @@ export const useAuthLogin = () => {
     verificationCode,
     isCodeSent,
     isSendingCode: sendVerificationCode.isPending,
-    isLoggingIn,
+    isLoggingIn: isLoggingIn || siwe.isPending,
     statusMessage,
     errorMessage,
     canSendCode,
