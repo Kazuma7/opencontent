@@ -31,12 +31,9 @@ export const PaymentVerificationView = () => {
             <span className="text-3xl">⏳</span>
           </div>
           <h2 className="text-xl font-semibold">送金を確認しています</h2>
-          <p className="text-muted-foreground">
-            少々お待ちください...
-          </p>
+          <p className="text-muted-foreground">少々お待ちください...</p>
         </CardContent>
       </Card>
     </div>
   );
 };
-

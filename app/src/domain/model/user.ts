@@ -19,11 +19,9 @@ export const userSchema = z.object({
   /** メールアドレス */
   email: z.email(),
   /** ウォレットアドレス（0x...） */
-  walletAddress: z
-    .string()
-    .refine((a) => isAddress(a), {
-      message: "有効なウォレットアドレスを入力してください",
-    }),
+  walletAddress: z.string().refine((a) => isAddress(a), {
+    message: "有効なウォレットアドレスを入力してください",
+  }),
   /** アイコン画像URL */
   iconImage: z.string().url().optional(),
 });

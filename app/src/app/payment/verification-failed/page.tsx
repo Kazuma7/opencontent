@@ -3,4 +3,3 @@ import { PaymentVerificationFailedView } from "@/features/payment-verification-f
 export default function PaymentVerificationFailedPage() {
   return <PaymentVerificationFailedView />;
 }
-

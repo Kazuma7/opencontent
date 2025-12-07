@@ -132,7 +132,10 @@ export const OrdersView = () => {
             <TableBody>
               {mockOrders.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center text-muted-foreground">
+                  <TableCell
+                    colSpan={6}
+                    className="text-center text-muted-foreground"
+                  >
                     注文データがありません
                   </TableCell>
                 </TableRow>
@@ -149,7 +152,9 @@ export const OrdersView = () => {
                     </TableCell>
                     <TableCell>{order.userName}</TableCell>
                     <TableCell>{getStatusBadge(order.status)}</TableCell>
-                    <TableCell>{formatAmount(order.amount, order.currency)}</TableCell>
+                    <TableCell>
+                      {formatAmount(order.amount, order.currency)}
+                    </TableCell>
                     <TableCell className="font-mono text-sm">
                       {formatTxHash(order.txHash)}
                     </TableCell>
@@ -166,4 +171,3 @@ export const OrdersView = () => {
     </div>
   );
 };
-
