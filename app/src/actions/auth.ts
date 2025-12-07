@@ -1,16 +1,7 @@
 "use server";
 
-import { cookies } from "next/headers";
-import { getIronSession } from "iron-session";
 import { getUser } from "thirdweb/wallets";
-import {
-  AuthSessionData,
-  authSessionDataSchema,
-  authSessionOptions,
-  defaultAuthSessionData,
-  getSession,
-  siweStatementSchema,
-} from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 import { generateNonce, SiweMessage } from "siwe";
 import z from "zod";
 import { UserRepository } from "@/infrastructure/repository/userRepository";
