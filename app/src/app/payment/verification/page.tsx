@@ -3,4 +3,3 @@ import { PaymentVerificationView } from "@/features/payment-verification/views/P
 export default function PaymentVerificationPage() {
   return <PaymentVerificationView />;
 }
-
