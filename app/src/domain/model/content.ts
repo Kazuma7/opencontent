@@ -58,9 +58,24 @@ export const contentSchema = z.object({
 // スキーマ結合
 export const contentModelSchema = contentSchema.and(timestampSchema);
 
+// コンテンツ作成用入力スキーマ
+export const createContentInputSchema = contentSchema.omit({
+  contentId: true, // uuidv7で自動生成
+  userId: true, // ctxから取得
+  likes: true, // デフォルト: 0
+  bookmarks: true, // デフォルト: 0
+  affiliateRate: true, // デフォルト: 0
+  isAffiliateEnabled: true, // デフォルト: false
+  isAdult: true, // デフォルト: false
+  visibility: true, // デフォルト: 'draft'
+  publishStartAt: true, // デフォルト: new Date()
+  saleStartAt: true, // デフォルト: new Date()
+});
+
 // 型エクスポート
 export type Price = z.infer<typeof priceSchema>;
 export type Category = z.infer<typeof categorySchema>;
 export type Visibility = z.infer<typeof visibilitySchema>;
 export type Content = z.infer<typeof contentSchema>;
 export type ContentModel = z.infer<typeof contentModelSchema>;
+export type CreateContentInput = z.infer<typeof createContentInputSchema>;
