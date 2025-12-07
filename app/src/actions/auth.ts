@@ -47,7 +47,7 @@ const signInWithEthActionParamsSchema = z.object({
 });
 
 export async function signInWithEthAction(
-  params: z.infer<typeof signInWithEthActionParamsSchema>
+  params: z.infer<typeof signInWithEthActionParamsSchema>,
 ) {
   "use server";
 
@@ -74,7 +74,7 @@ export async function signInWithEthAction(
       return { success: false, message: "User email not found" } as const;
 
     let targetUser = await userRepository.findByWalletAddress(
-      fields.data.address
+      fields.data.address,
     );
     if (!targetUser) {
       targetUser = {
@@ -123,8 +123,8 @@ export async function logout(params: z.infer<typeof logoutActionParams>) {
       (s) =>
         !isAddressEqual(
           params.walletAddress as Address,
-          s.walletAddress as Address
-        )
+          s.walletAddress as Address,
+        ),
     );
     await session.save();
     return { success: true } as const;

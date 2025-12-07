@@ -19,7 +19,7 @@ export const authSessionDataSchema = z.object({
       siwe: z.custom<SiweMessage>(),
       userId: z.string(),
       walletAddress: z.string(),
-    })
+    }),
   ),
 });
 
@@ -42,7 +42,7 @@ export const authSessionOptions: SessionOptions = {
 export const getSession = async () => {
   const session = await getIronSession<{ data: AuthSessionData }>(
     await cookies(),
-    authSessionOptions
+    authSessionOptions,
   );
 
   const parsed = authSessionDataSchema.safeParse(session.data ?? undefined);

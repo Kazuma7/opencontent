@@ -139,7 +139,7 @@ export const useAutoSiweLogin = () => {
     if (!address || !chainId || sessions.isLoading) return;
 
     const alreadySignIned = sessions.data?.sessions.some((s) =>
-      isAddressEqual(s.walletAddress as Address, address)
+      isAddressEqual(s.walletAddress as Address, address),
     );
     if (alreadySignIned) return;
 

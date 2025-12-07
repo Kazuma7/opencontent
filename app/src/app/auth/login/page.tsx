@@ -17,7 +17,7 @@ export default function AuthLoginPage() {
     isConnected &&
     !!address &&
     sessions.data?.sessions.some((session) =>
-      isAddressEqual(session.walletAddress as Address, address)
+      isAddressEqual(session.walletAddress as Address, address),
     );
 
   useEffect(() => {
