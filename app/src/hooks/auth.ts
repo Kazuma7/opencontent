@@ -11,7 +11,6 @@ import { useEffect } from "react";
 import { SiweMessage } from "siwe";
 import { preAuthenticate } from "thirdweb/wallets";
 import { Address, isAddressEqual } from "viem";
-import { getProfiles } from "thirdweb/wallets";
 import {
   useConnect,
   useConnection,
@@ -19,7 +18,6 @@ import {
   useDisconnect,
   useSignMessage,
 } from "wagmi";
-import { SiweStatement } from "@/lib/auth";
 
 export const useSessionsQuery = () => {
   const query = useQuery({

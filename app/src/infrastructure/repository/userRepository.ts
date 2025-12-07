@@ -1,7 +1,6 @@
 import type { UserModel } from "@/domain/model/user";
 import { userModelSchema } from "@/domain/model/user";
 import type { Firestore, Timestamp } from "firebase-admin/firestore";
-import { Address } from "viem";
 
 type FirestoreData = Omit<UserModel, "createdAt" | "updatedAt"> & {
   createdAt: Timestamp;

@@ -13,7 +13,7 @@ export const userSchema = z.object({
   uniqueName: z
     .string()
     .min(1)
-    .regex(/^[a-z0-9_]+$/, {
+    .regex(/^[a-zA-Z0-9_]+$/, {
       message: "ユニーク名は小文字英数字とアンダースコアのみ使用できます",
     }),
   /** メールアドレス */
