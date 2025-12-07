@@ -1,8 +1,6 @@
 import { createSafeActionClient } from "next-safe-action";
-import { cookies } from "next/headers";
-import { AUTH_COOKIE_NAME } from "@/constants/auth";
-import admin from "firebase-admin";
-import { app } from "./firebase";
+import { getSession } from "./auth";
+import { z } from "zod";
 
 export const actionClient = createSafeActionClient({
   handleServerError(e: Error, _utils): string {
@@ -10,47 +8,39 @@ export const actionClient = createSafeActionClient({
     console.error(e, "Action error");
     return e.message || "Internal Server Error";
   },
-}).use(async ({ next }) => {
-  if (process.env.ENV === "local") {
-    return next({ ctx: { userId: "local-dev-user-id" } });
-  }
+})
+  .bindArgsSchemas([z.string().optional()])
+  .use(async ({ bindArgsClientInputs: [walletAddress], next }) => {
+    if (process.env.ENV === "local") {
+      return next({
+        ctx: {
+          userId: "91b62235-e266-4f93-9ab3-a017ebcdc32e",
+          walletAddress: "0x08e521b5A2ecC1E1e7cBfa12651c96F58C42C31D",
+        },
+      });
+    }
 
-  const cookieStore = await cookies();
-  const idToken = cookieStore.get(AUTH_COOKIE_NAME)?.value;
+    if (!walletAddress) {
+      throw new Error("Unauthorized: walletAddress is required");
+    }
 
-  if (!idToken) {
-    throw new Error("Unauthorized: idToken is missing");
-  }
-  const decodedToken = await verifyIdToken(idToken);
-  if (!decodedToken?.uid) {
-    throw new Error(`Unauthorized: uid is missing in decoded token`);
-  }
-  const userId = decodedToken.uid;
-  if (!userId) {
-    throw new Error("Session is not valid!");
-  }
-  return next({ ctx: { userId } });
-});
+    const session = await getSession();
+    if (!session.data.sessions) {
+      throw new Error("Unauthorized: session is missing");
+    }
 
-interface DecodedToken {
-  uid: string;
-  email?: string;
-  emailVerified?: boolean;
-  name?: string;
-}
+    if (session.data.sessions.length === 0) {
+      throw new Error("Unauthorized: no active sessions");
+    }
 
-async function verifyIdToken(idToken: string): Promise<DecodedToken | null> {
-  const adminAuth = admin.auth(app);
-  try {
-    const decodedToken = await adminAuth.verifyIdToken(idToken);
-    return {
-      uid: decodedToken.uid,
-      email: decodedToken.email,
-      emailVerified: decodedToken.email_verified,
-      name: decodedToken.name,
-    };
-  } catch (error) {
-    console.error("ID token verification failed:", error);
-    return null;
-  }
-}
+    const usedSession = session.data.sessions.find(
+      (s) => s.walletAddress == walletAddress,
+    );
+    if (!usedSession) {
+      throw new Error(
+        "Unauthorized: walletAddress does not match any active session",
+      );
+    }
+
+    return next({ ctx: usedSession });
+  });
