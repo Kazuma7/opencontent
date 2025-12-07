@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Address, Hex, isAddressEqual } from "viem";
+import { Address, isAddressEqual } from "viem";
 import { useConnection } from "wagmi";
 
 import { AuthLoginView } from "@/features/auth-login/views/AuthLoginView";
@@ -17,7 +17,7 @@ export default function AuthLoginPage() {
     isConnected &&
     !!address &&
     sessions.data?.sessions.some((session) =>
-      isAddressEqual(session.walletAddress as Address, address)
+      isAddressEqual(session.walletAddress as Address, address),
     );
 
   useEffect(() => {

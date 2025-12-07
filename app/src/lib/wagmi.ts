@@ -6,7 +6,7 @@ import { createThirdwebClient, GetUserResult } from "thirdweb";
 export const thirdwebClient = createThirdwebClient(
   process.env.THIRDWEB_SECRET_KEY
     ? { secretKey: process.env.THIRDWEB_SECRET_KEY }
-    : { clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID as string }
+    : { clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID as string },
 );
 
 export const pickUserName = (user: GetUserResult) =>
@@ -15,7 +15,7 @@ export const pickUserName = (user: GetUserResult) =>
       (p) =>
         "name" in p.details &&
         typeof p.details.name === "string" &&
-        p.details.name
+        p.details.name,
     )
     .find((name) => name) || "Unknown";
 

@@ -7,7 +7,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 
@@ -52,7 +58,9 @@ export const ProductEditorView = () => {
     }
   };
 
-  const handleThumbnailFilesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleThumbnailFilesChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const files = Array.from(e.target.files || []);
     const imageFiles = files.filter((file) => file.type.startsWith("image/"));
     setThumbnailFiles([...thumbnailFiles, ...imageFiles]);
@@ -175,7 +183,9 @@ export const ProductEditorView = () => {
                       }
                     }}
                   />
-                  <Button type="button" onClick={addTag}>追加</Button>
+                  <Button type="button" onClick={addTag}>
+                    追加
+                  </Button>
                 </div>
                 {tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-2">
@@ -216,7 +226,9 @@ export const ProductEditorView = () => {
                       step="0.01"
                       required
                     />
-                    <p className="text-sm text-muted-foreground">USDCでの価格を入力（必須）</p>
+                    <p className="text-sm text-muted-foreground">
+                      USDCでの価格を入力（必須）
+                    </p>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="jpycPrice">JPYC価格 *</Label>
@@ -230,7 +242,9 @@ export const ProductEditorView = () => {
                       step="0.01"
                       required
                     />
-                    <p className="text-sm text-muted-foreground">JPYCでの価格を入力（必須）</p>
+                    <p className="text-sm text-muted-foreground">
+                      JPYCでの価格を入力（必須）
+                    </p>
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground">
@@ -241,7 +255,10 @@ export const ProductEditorView = () => {
               <div className="space-y-4">
                 <div className="flex items-center space-x-2">
                   <Checkbox id="isAffiliateEnabled" />
-                  <Label htmlFor="isAffiliateEnabled" className="cursor-pointer">
+                  <Label
+                    htmlFor="isAffiliateEnabled"
+                    className="cursor-pointer"
+                  >
                     アフィリエイトを有効にする
                   </Label>
                 </div>
@@ -254,7 +271,9 @@ export const ProductEditorView = () => {
                     max="100"
                     placeholder="0"
                   />
-                  <p className="text-sm text-muted-foreground">0-100の範囲で設定してください</p>
+                  <p className="text-sm text-muted-foreground">
+                    0-100の範囲で設定してください
+                  </p>
                 </div>
               </div>
             </TabsContent>
@@ -270,7 +289,9 @@ export const ProductEditorView = () => {
                       <div className="w-full space-y-2">
                         <div className="flex items-center justify-between p-3 bg-muted rounded-md">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-medium">{contentFile.name}</span>
+                            <span className="text-sm font-medium">
+                              {contentFile.name}
+                            </span>
                             <span className="text-xs text-muted-foreground">
                               ({formatFileSize(contentFile.size)})
                             </span>
@@ -322,9 +343,14 @@ export const ProductEditorView = () => {
                   {thumbnailFiles.length > 0 && (
                     <div className="grid grid-cols-2 gap-4">
                       {thumbnailFiles.map((file, index) => (
-                        <div key={index} className="relative border rounded-lg p-3">
+                        <div
+                          key={index}
+                          className="relative border rounded-lg p-3"
+                        >
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="text-sm font-medium truncate flex-1">{file.name}</span>
+                            <span className="text-sm font-medium truncate flex-1">
+                              {file.name}
+                            </span>
                             <Button
                               type="button"
                               variant="ghost"
@@ -381,10 +407,14 @@ export const ProductEditorView = () => {
                 <Button
                   type="button"
                   onClick={handleUpload}
-                  disabled={isUploading || !contentFile || thumbnailFiles.length === 0}
+                  disabled={
+                    isUploading || !contentFile || thumbnailFiles.length === 0
+                  }
                   className="w-full"
                 >
-                  {isUploading ? `アップロード中... ${uploadProgress}%` : "アップロード"}
+                  {isUploading
+                    ? `アップロード中... ${uploadProgress}%`
+                    : "アップロード"}
                 </Button>
                 {isUploading && (
                   <div className="w-full bg-muted rounded-full h-2">
@@ -421,42 +451,34 @@ export const ProductEditorView = () => {
                   <SelectContent>
                     <SelectItem value="public">公開</SelectItem>
                     <SelectItem value="private">非公開</SelectItem>
-                    <SelectItem value="followers_only">フォロワーのみ</SelectItem>
+                    <SelectItem value="followers_only">
+                      フォロワーのみ
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="publishStartAt">公開開始日時 *</Label>
-                <Input
-                  id="publishStartAt"
-                  type="datetime-local"
-                  required
-                />
+                <Input id="publishStartAt" type="datetime-local" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="publishEndAt">公開終了日時</Label>
-                <Input
-                  id="publishEndAt"
-                  type="datetime-local"
-                />
-                <p className="text-sm text-muted-foreground">任意：設定しない場合は無期限で公開されます</p>
+                <Input id="publishEndAt" type="datetime-local" />
+                <p className="text-sm text-muted-foreground">
+                  任意：設定しない場合は無期限で公開されます
+                </p>
               </div>
               <Separator />
               <div className="space-y-2">
                 <Label htmlFor="saleStartAt">販売開始日時 *</Label>
-                <Input
-                  id="saleStartAt"
-                  type="datetime-local"
-                  required
-                />
+                <Input id="saleStartAt" type="datetime-local" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="saleEndAt">販売終了日時</Label>
-                <Input
-                  id="saleEndAt"
-                  type="datetime-local"
-                />
-                <p className="text-sm text-muted-foreground">任意：設定しない場合は無期限で販売されます</p>
+                <Input id="saleEndAt" type="datetime-local" />
+                <p className="text-sm text-muted-foreground">
+                  任意：設定しない場合は無期限で販売されます
+                </p>
               </div>
             </TabsContent>
           </Tabs>
@@ -466,9 +488,7 @@ export const ProductEditorView = () => {
         <Button variant="outline" asChild>
           <Link href="/creator/products">キャンセル</Link>
         </Button>
-        <Button type="button">
-          保存
-        </Button>
+        <Button type="button">保存</Button>
       </div>
     </div>
   );
