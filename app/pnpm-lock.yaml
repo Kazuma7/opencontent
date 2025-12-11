@@ -87,6 +87,9 @@ importers:
       thirdweb:
         specifier: ^5.114.1
         version: 5.114.1(@hey-api/openapi-ts@0.88.0(typescript@5.9.3))(@solana/sysvars@3.0.3(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.9.3))(@tanstack/query-core@5.90.11)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(bufferutil@4.0.9)(ethers@6.15.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(fastestsmallesttextencoderdecoder@1.0.22)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(ws@8.18.3(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+      thread-stream:
+        specifier: ^0.15.2
+        version: 0.15.2
       uuid:
         specifier: ^13.0.0
         version: 13.0.0
