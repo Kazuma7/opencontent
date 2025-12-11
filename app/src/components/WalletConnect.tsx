@@ -33,6 +33,10 @@ export function WalletConnect() {
 
   const thirdwebConnect = async () => {
     const inAppWallet = connectors.find((x) => x.id === "in-app-wallet");
+    if (!inAppWallet) {
+      console.error("In-app wallet connector not found");
+      return;
+    }
     connect({
       connector: inAppWallet,
       strategy: "google",
