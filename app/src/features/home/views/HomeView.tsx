@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { newContents, popularContents } from "./mockData";
+import { WalletConnect } from "@/components/WalletConnect";
 
 export const HomeView = () => {
   return (
@@ -15,6 +16,7 @@ export const HomeView = () => {
       </div>
       <div className="space-y-8">
         <section>
+          <WalletConnect />
           <h2 className="mb-4 text-2xl font-semibold">新着コンテンツ</h2>
           <div className="grid space-y-5 grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
             {newContents.map((content) => (
