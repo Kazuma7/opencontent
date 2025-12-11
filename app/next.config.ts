@@ -4,10 +4,8 @@ const nextConfig: NextConfig = {
     // サーバーコンポーネントで外部パッケージとして扱う
     serverExternalPackages: ["thread-stream"],
 
-    // Turbopack用の設定
-    experimental: {
-        serverComponentsExternalPackages: ["thread-stream"],
-    },
+    // Turbopack用の設定（空の設定でエラーを回避）
+    turbopack: {},
 
     // Webpack用の設定（Turbopackが無効な場合のフォールバック）
     webpack: (config, { isServer }) => {
