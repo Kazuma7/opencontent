@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useConnection } from "wagmi";
 import { useSampleHook } from "../hooks";
 import { greetUser } from "../actions";
 import { SampleCard } from "../components/SampleCard";
@@ -9,9 +10,10 @@ export const SampleView = () => {
   const { count, increment, decrement, reset, inputValue, setInputValue } =
     useSampleHook();
   const [greetMessage, setGreetMessage] = useState("");
+  const { address } = useConnection();
 
   const handleGreet = async () => {
-    const result = await greetUser({ name: inputValue });
+    const result = await greetUser(address || undefined, { name: inputValue });
     if (result?.data) {
       setGreetMessage(result.data.message);
     }
