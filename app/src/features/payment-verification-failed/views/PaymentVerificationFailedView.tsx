@@ -13,7 +13,9 @@ export const PaymentVerificationFailedView = () => {
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
             <span className="text-3xl text-destructive">✗</span>
           </div>
-          <h2 className="text-xl font-semibold text-destructive">確認できませんでした</h2>
+          <h2 className="text-xl font-semibold text-destructive">
+            確認できませんでした
+          </h2>
           <p className="text-muted-foreground">
             また時間を空けて行ってください
           </p>
@@ -30,4 +32,3 @@ export const PaymentVerificationFailedView = () => {
     </div>
   );
 };
-

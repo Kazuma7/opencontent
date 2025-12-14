@@ -62,7 +62,7 @@ export const useAuthLogin = () => {
       setStatusMessage(null);
       setErrorMessage(null);
     },
-    [isCodeSent]
+    [isCodeSent],
   );
 
   const handleLogin = useCallback(async () => {
@@ -73,7 +73,7 @@ export const useAuthLogin = () => {
     try {
       await loginWithEmail(email.trim(), verificationCode.trim());
       setStatusMessage(
-        "ログイン処理を開始しました。ブラウザの接続確認を続行してください。"
+        "ログイン処理を開始しました。ブラウザの接続確認を続行してください。",
       );
     } catch (error) {
       const message =
@@ -91,7 +91,7 @@ export const useAuthLogin = () => {
     try {
       await loginWithGoogle();
       setStatusMessage(
-        "Googleでのログインを開始しました。ポップアップを確認してください。"
+        "Googleでのログインを開始しました。ポップアップを確認してください。",
       );
     } catch (error) {
       const message =
@@ -109,7 +109,7 @@ export const useAuthLogin = () => {
     try {
       await loginWithGithub();
       setStatusMessage(
-        "GitHubでのログインを開始しました。ポップアップを確認してください。"
+        "GitHubでのログインを開始しました。ポップアップを確認してください。",
       );
     } catch (error) {
       const message =

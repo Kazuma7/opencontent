@@ -1,7 +1,13 @@
 import { Ctx } from "../model/ctx";
-import { Content, Category, ContentModel } from "../model/content";
+import {
+  Category,
+  Content,
+  ContentModel,
+  CreateContentInput,
+} from "../model/content";
 import { ContentRepository } from "@/infrastructure/repository/contentRepository";
 import { db } from "@/infrastructure/firestore";
+import { v7 as uuidv7 } from "uuid";
 
 export class ContentService {
   constructor(private readonly contentRepo: ContentRepository) {}
@@ -95,6 +101,47 @@ export class ContentService {
       await this.contentRepo.save(updated, tx);
 
       return updated;
+    });
+  }
+
+  async createMyContent(
+    ctx: Ctx,
+    input: CreateContentInput,
+  ): Promise<ContentModel> {
+    if (!ctx.userId) {
+      throw new Error("Authentication required");
+    }
+
+    return db.runTransaction(async (tx) => {
+      const now = new Date();
+      const newContent: ContentModel = {
+        contentId: uuidv7(),
+        userId: ctx.userId!,
+        name: input.name,
+        description: input.description,
+        thumbnailImages: input.thumbnailImages,
+        storagePath: input.storagePath,
+        category: input.category,
+        subcategory: input.subcategory,
+        tags: input.tags,
+        prices: input.prices,
+        affiliateRate: 0,
+        isAffiliateEnabled: false,
+        likes: 0,
+        bookmarks: 0,
+        isAdult: false,
+        visibility: "draft",
+        publishStartAt: now,
+        publishEndAt: input.publishEndAt,
+        saleStartAt: now,
+        saleEndAt: input.saleEndAt,
+        createdAt: now,
+        updatedAt: now,
+      };
+
+      await this.contentRepo.save(newContent, tx);
+
+      return newContent;
     });
   }
 }

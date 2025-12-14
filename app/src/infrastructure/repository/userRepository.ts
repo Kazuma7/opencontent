@@ -1,7 +1,6 @@
 import type { UserModel } from "@/domain/model/user";
 import { userModelSchema } from "@/domain/model/user";
 import type { Firestore, Timestamp } from "firebase-admin/firestore";
-import { Address } from "viem";
 
 type FirestoreData = Omit<UserModel, "createdAt" | "updatedAt"> & {
   createdAt: Timestamp;
@@ -15,7 +14,7 @@ export class UserRepository {
 
   async findById(
     userId: string,
-    tx?: FirebaseFirestore.Transaction
+    tx?: FirebaseFirestore.Transaction,
   ): Promise<UserModel | null> {
     const docRef = this.db.collection(this.collectionName).doc(userId);
     const doc = tx ? await tx.get(docRef) : await docRef.get();
@@ -34,7 +33,7 @@ export class UserRepository {
 
   async findByWalletAddress(
     walletAddress: string,
-    tx?: FirebaseFirestore.Transaction
+    tx?: FirebaseFirestore.Transaction,
   ): Promise<UserModel | null> {
     const queryRef = this.db
       .collection(this.collectionName)
@@ -55,7 +54,7 @@ export class UserRepository {
 
   async save(
     user: UserModel,
-    tx?: FirebaseFirestore.Transaction
+    tx?: FirebaseFirestore.Transaction,
   ): Promise<void> {
     const docRef = this.db.collection(this.collectionName).doc(user.userId);
     const now = new Date();

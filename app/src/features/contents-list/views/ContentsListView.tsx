@@ -37,7 +37,11 @@ export const ContentsListView = () => {
       </div>
       <div className="flex flex-wrap gap-2">
         {["タグ1", "タグ2", "タグ3"].map((tag) => (
-          <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-secondary/80">
+          <Badge
+            key={tag}
+            variant="secondary"
+            className="cursor-pointer hover:bg-secondary/80"
+          >
             {tag}
           </Badge>
         ))}
@@ -53,7 +57,9 @@ export const ContentsListView = () => {
                 </div>
               </div>
               {/* カテゴリ */}
-              <p className="text-xs text-muted-foreground">{content.category}</p>
+              <p className="text-xs text-muted-foreground">
+                {content.category}
+              </p>
               {/* タイトル */}
               <p className="line-clamp-2 text-sm font-medium leading-tight group-hover:text-primary">
                 {content.title}
@@ -65,7 +71,9 @@ export const ContentsListView = () => {
                     {content.creator.charAt(0)}
                   </span>
                 </div>
-                <p className="text-xs text-muted-foreground">{content.creator}</p>
+                <p className="text-xs text-muted-foreground">
+                  {content.creator}
+                </p>
               </div>
               {/* 価格 */}
               <p className="text-sm font-semibold">
@@ -80,4 +88,3 @@ export const ContentsListView = () => {
     </div>
   );
 };
-
