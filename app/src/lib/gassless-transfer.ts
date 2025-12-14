@@ -8,14 +8,12 @@ import {
 import {
   Address,
   Hex,
-  Chain,
   PublicClient,
   verifyTypedData,
   parseSignature,
   encodeFunctionData,
   erc20Abi,
 } from "viem";
-import { sepolia } from "thirdweb/chains";
 import { ERC20_PERMIT_ABI } from "./abis/erc20-permit";
 import { ADMIN_MULTICALL_ABI } from "./abis/admin-multicall";
 import { findPublicClient, findThridWebChainById, wagmiConfig } from "./wagmi";
@@ -244,12 +242,36 @@ export const createGasslessTransferService = (params: {
         transaction,
       });
 
-      return { transferId: transactionId };
+      return { success: true, transferId: transactionId } as const;
     } catch (e) {
       console.error("issueGasslessTransfer: Failed issue transfer", e);
       return { success: false, message: "unhandled_error" } as const;
     }
   };
 
-  return { issueGasslessTransfer };
+  const getTransferStatus = async (params: { transferId: string }) => {
+    const executionResult = await Engine.getTransactionStatus({
+      client: thirdwebClient,
+      transactionId: params.transferId,
+    });
+
+    return executionResult;
+  };
+
+  const waitTransferTransactionHash = async (params: {
+    transferId: string;
+  }) => {
+    const { transactionHash } = await Engine.waitForTransactionHash({
+      client: thirdwebClient,
+      transactionId: params.transferId,
+    });
+
+    return { txHash: transactionHash };
+  };
+
+  return {
+    issueGasslessTransfer,
+    getTransferStatus,
+    waitTransferTransactionHash,
+  };
 };
