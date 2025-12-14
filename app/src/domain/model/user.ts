@@ -13,17 +13,15 @@ export const userSchema = z.object({
   uniqueName: z
     .string()
     .min(1)
-    .regex(/^[a-z0-9_]+$/, {
+    .regex(/^[a-zA-Z0-9_]+$/, {
       message: "ユニーク名は小文字英数字とアンダースコアのみ使用できます",
     }),
   /** メールアドレス */
   email: z.email(),
   /** ウォレットアドレス（0x...） */
-  walletAddress: z
-    .string()
-    .refine((a) => isAddress(a), {
-      message: "有効なウォレットアドレスを入力してください",
-    }),
+  walletAddress: z.string().refine((a) => isAddress(a), {
+    message: "有効なウォレットアドレスを入力してください",
+  }),
   /** アイコン画像URL */
   iconImage: z.string().url().optional(),
 });
