@@ -52,35 +52,51 @@ export const fetchPermitMetadata = async (
       args: [owner],
     }),
   ]);
-  return { name, nonce };
+
+  let version = "1";
+  try {
+    version = await publicClient.readContract({
+      address: tokenAddress,
+      abi: ERC20_PERMIT_ABI,
+      functionName: "version",
+    });
+  } catch {
+    // OZ ERC20Permit系など、version() を公開していないトークン向け
+    version = "1";
+  }
+
+  return { name, nonce, version };
 };
 
 export const getPermitSignMessage = (params: {
   name: string;
   chainId: number;
+  version: string;
   tokenAddress: Address;
   owner: Address;
   nonce: bigint;
   totalValue: bigint;
   deadlineSec: number;
 }) => {
-  const { name, chainId, tokenAddress, owner, nonce, totalValue, deadlineSec } =
-    params;
+  const {
+    name,
+    chainId,
+    tokenAddress,
+    version,
+    owner,
+    nonce,
+    totalValue,
+    deadlineSec,
+  } = params;
 
   const domain = {
     name,
-    version: "1",
-    chainId: BigInt(chainId),
+    version,
+    chainId,
     verifyingContract: tokenAddress,
   } as const;
 
   const types = {
-    EIP712Domain: [
-      { name: "name", type: "string" },
-      { name: "version", type: "string" },
-      { name: "chainId", type: "uint256" },
-      { name: "verifyingContract", type: "address" },
-    ],
     Permit: [
       { name: "owner", type: "address" },
       { name: "spender", type: "address" },
@@ -150,7 +166,7 @@ export const createGasslessTransferService = (params: {
         BigInt(0)
       );
 
-      const { name, nonce } = await fetchPermitMetadata(
+      const { name, nonce, version } = await fetchPermitMetadata(
         publicClient,
         tokenAddress,
         owner
@@ -159,6 +175,7 @@ export const createGasslessTransferService = (params: {
       const signParams = getPermitSignMessage({
         name,
         chainId,
+        version,
         tokenAddress,
         owner,
         nonce,
@@ -209,45 +226,17 @@ export const createGasslessTransferService = (params: {
         abi: ADMIN_MULTICALL_ABI,
       });
 
-      // const transaction = prepareContractCall({
-      //   contract,
-      //   method: "aggregate",
-      //   params: [
-      //     [
-      //       { target: tokenAddress, callData: permitCalldata },
-      //       ...transferCalldataList.map((callData) => ({
-      //         target: tokenAddress,
-      //         callData,
-      //       })),
-      //     ],
-      //   ],
-      // }) as PreparedTransaction;
-
-      console.log([
-        owner,
-        multicallAddress,
-        totalValue,
-        BigInt(deadlineSec),
-        v,
-        r,
-        s,
-      ]);
       const transaction = prepareContractCall({
-        contract: getContract({
-          client: thirdwebClient,
-          chain,
-          address: tokenAddress,
-          abi: ERC20_PERMIT_ABI,
-        }),
-        method: "permit",
+        contract,
+        method: "aggregate",
         params: [
-          owner,
-          multicallAddress,
-          totalValue,
-          BigInt(deadlineSec),
-          v,
-          r,
-          s,
+          [
+            { target: tokenAddress, callData: permitCalldata },
+            ...transferCalldataList.map((callData) => ({
+              target: tokenAddress,
+              callData,
+            })),
+          ],
         ],
       }) as PreparedTransaction;
 

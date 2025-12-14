@@ -41,16 +41,17 @@ export const useSignGassLessTransfer = () => {
     const deadlineMilSec = deadline?.getTime() ?? Date.now() + ONE_HOUR_MILSEC;
     const deadlineSec = Math.floor(deadlineMilSec / 1000);
 
-    const { name, nonce } = await fetchPermitMetadata(
+    const { name, nonce, version } = await fetchPermitMetadata(
       publicClient,
       tokenAddress,
       owner
     );
-    console.log("Metadata", { name, nonce });
+    console.log("Metadata", { name, nonce, version });
 
     const signParams = getPermitSignMessage({
       name,
       chainId,
+      version,
       tokenAddress,
       owner,
       nonce,

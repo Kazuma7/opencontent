@@ -1,31 +1,12 @@
-export const ERC20_PERMIT_ABI = [
-  {
-    type: "function",
-    name: "name",
-    stateMutability: "view",
-    inputs: [],
-    outputs: [{ name: "", type: "string" }],
-  },
-  {
-    type: "function",
-    name: "nonces",
-    stateMutability: "view",
-    inputs: [{ name: "owner", type: "address" }],
-    outputs: [{ name: "", type: "uint256" }],
-  },
-  {
-    type: "function",
-    name: "permit",
-    stateMutability: "nonpayable",
-    inputs: [
-      { name: "owner", type: "address" },
-      { name: "spender", type: "address" },
-      { name: "value", type: "uint256" },
-      { name: "deadline", type: "uint256" },
-      { name: "v", type: "uint8" },
-      { name: "r", type: "bytes32" },
-      { name: "s", type: "bytes32" },
-    ],
-    outputs: [],
-  },
-] as const;
+import { parseAbi } from "viem";
+
+export const ERC20_PERMIT_ABI = parseAbi([
+  "function name() view returns (string)",
+  "function version() view returns (string)",
+  "function decimals() view returns (uint8)",
+  "function balanceOf(address) view returns (uint256)",
+  "function allowance(address owner,address spender) view returns (uint256)",
+  "function nonces(address owner) view returns (uint256)",
+  "function permit(address owner,address spender,uint256 value,uint256 deadline,uint8 v,bytes32 r,bytes32 s)",
+  "function transferFrom(address from,address to,uint256 value) returns (bool)",
+]);
