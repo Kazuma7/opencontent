@@ -1,6 +1,5 @@
 import { Address } from "viem";
 import { usePublicClient, useSignTypedData } from "wagmi";
-import { ERC20_PERMIT_ABI } from "@/lib/abis/erc20-permit";
 import {
   fetchPermitMetadata,
   getPermitSignMessage,
@@ -47,6 +46,7 @@ export const useSignGassLessTransfer = () => {
       tokenAddress,
       owner
     );
+    console.log("Metadata", { name, nonce });
 
     const signParams = getPermitSignMessage({
       name,
@@ -57,6 +57,7 @@ export const useSignGassLessTransfer = () => {
       totalValue,
       deadlineSec,
     });
+    console.log("Full sign params", signParams);
 
     const signature = await signTypedDataAsync(signParams);
 

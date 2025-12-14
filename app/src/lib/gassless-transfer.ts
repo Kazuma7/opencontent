@@ -70,11 +70,17 @@ export const getPermitSignMessage = (params: {
   const domain = {
     name,
     version: "1",
-    chainId,
+    chainId: BigInt(chainId),
     verifyingContract: tokenAddress,
   } as const;
 
   const types = {
+    EIP712Domain: [
+      { name: "name", type: "string" },
+      { name: "version", type: "string" },
+      { name: "chainId", type: "uint256" },
+      { name: "verifyingContract", type: "address" },
+    ],
     Permit: [
       { name: "owner", type: "address" },
       { name: "spender", type: "address" },
@@ -203,17 +209,45 @@ export const createGasslessTransferService = (params: {
         abi: ADMIN_MULTICALL_ABI,
       });
 
+      // const transaction = prepareContractCall({
+      //   contract,
+      //   method: "aggregate",
+      //   params: [
+      //     [
+      //       { target: tokenAddress, callData: permitCalldata },
+      //       ...transferCalldataList.map((callData) => ({
+      //         target: tokenAddress,
+      //         callData,
+      //       })),
+      //     ],
+      //   ],
+      // }) as PreparedTransaction;
+
+      console.log([
+        owner,
+        multicallAddress,
+        totalValue,
+        BigInt(deadlineSec),
+        v,
+        r,
+        s,
+      ]);
       const transaction = prepareContractCall({
-        contract,
-        method: "aggregate",
+        contract: getContract({
+          client: thirdwebClient,
+          chain,
+          address: tokenAddress,
+          abi: ERC20_PERMIT_ABI,
+        }),
+        method: "permit",
         params: [
-          [
-            { target: tokenAddress, callData: permitCalldata },
-            ...transferCalldataList.map((callData) => ({
-              target: tokenAddress,
-              callData,
-            })),
-          ],
+          owner,
+          multicallAddress,
+          totalValue,
+          BigInt(deadlineSec),
+          v,
+          r,
+          s,
         ],
       }) as PreparedTransaction;
 
