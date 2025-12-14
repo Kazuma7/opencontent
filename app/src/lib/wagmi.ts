@@ -2,6 +2,11 @@ import { createConfig, http, cookieStorage, createStorage } from "wagmi";
 import { mainnet, sepolia } from "wagmi/chains";
 import { inAppWalletConnector } from "@thirdweb-dev/wagmi-adapter";
 import { createThirdwebClient, GetUserResult } from "thirdweb";
+import { sepolia as thirdwebSepolia } from "thirdweb/chains";
+import { createPublicClient } from "viem";
+
+export const VIEM_CHAINS = [sepolia] as const;
+export const THIRDWEB_CHAINS = [thirdwebSepolia];
 
 export const thirdwebClient = createThirdwebClient(
   process.env.THIRDWEB_SECRET_KEY
@@ -9,18 +14,8 @@ export const thirdwebClient = createThirdwebClient(
     : { clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID as string }
 );
 
-export const pickUserName = (user: GetUserResult) =>
-  user.profiles
-    .map(
-      (p) =>
-        "name" in p.details &&
-        typeof p.details.name === "string" &&
-        p.details.name
-    )
-    .find((name) => name) || "Unknown";
-
 export const wagmiConfig = createConfig({
-  chains: [mainnet, sepolia],
+  chains: VIEM_CHAINS,
   ssr: true,
   connectors: [
     inAppWalletConnector({
@@ -32,7 +27,6 @@ export const wagmiConfig = createConfig({
     storage: cookieStorage,
   }),
   transports: {
-    [mainnet.id]: http(),
     [sepolia.id]: http(),
   },
 });
@@ -42,3 +36,26 @@ declare module "wagmi" {
     config: typeof wagmiConfig;
   }
 }
+
+export const pickUserName = (user: GetUserResult) =>
+  user.profiles
+    .map(
+      (p) =>
+        "name" in p.details &&
+        typeof p.details.name === "string" &&
+        p.details.name
+    )
+    .find((name) => name) || "Unknown";
+
+export const findThridWebChainById = (chainId: number) => {
+  const chain = THIRDWEB_CHAINS.find(({ id }) => id === chainId);
+  return chain ?? null;
+};
+
+export const findPublicClient = (chainId: number) => {
+  const chain = VIEM_CHAINS.find(({ id }) => id === chainId);
+  if (!chain) return null;
+  const publicClient = createPublicClient({ chain, transport: http() });
+
+  return publicClient;
+};
