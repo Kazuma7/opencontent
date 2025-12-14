@@ -2,7 +2,6 @@
 pragma solidity 0.8.28;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "./Multicall3.sol";
 
 bytes32 constant MULTICALLER_ROLE = keccak256("MULTICALLER_ROLE");
 
